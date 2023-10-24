@@ -1,7 +1,190 @@
 title: Research group wiki
 description: Wiki for sharing procedures and information in research groups.
 maintainer: Joe Bloggs
+baseurl: "/wiki"
 github_user_or_organisation: aplowman
 markdown: kramdown
 kramdown:
   input: GFM
+
+jupyter_notebooks_dir: "_includes/jupyter_notebooks"
+jupyter_notebooks_branch: "master"
+jupyter_notebooks_images: "/assets/images/jupyter_notebooks"
+
+# Want to include files in `_includes/code` (expected way doesn't work).
+include:
+  - _includes
+exclude:
+  - _includes/head.html
+  - _includes/page_sidebar.html
+  - _includes/page_header.html
+  - _includes/toc.html
+  - _includes/get_tags.html
+  - _includes/checklist_controls.html
+  - _includes/checklist_urls.html
+  - _includes/checklist.md
+  - _includes/get_checklists.html
+  - _includes/get_checklist_formatted.html
+  - _includes/get_author_pages.html
+  - _includes/get_person_handle.html
+  - _includes/resolve_people.html
+collections_dir: collections
+collections:
+  code_of_conduct:
+    output: true
+    nav_order: 0
+    nav_name: Code of Conduct
+    nav_list_pages: false
+    index_list_pages: false
+    permalink: /:collection/:name
+  handbook:
+    output: true
+    nav_order: 1
+    nav_name: Handbook
+    nav_list_pages: false
+    index_list_pages: true
+    permalink: /:collection/:name
+    add_new_name: page
+  experiments:
+    output: true
+    nav_order: 2
+    nav_name: Experiments
+    nav_list_pages: false
+    index_list_pages: false
+    permalink: /:collection/:name
+    add_new_name: experiment
+  tutorials:
+    output: true
+    nav_order: 3
+    nav_name: Tutorials
+    index_list_pages: true
+    permalink: /:collection/:name
+    add_new_name: tutorial
+  data_analysis:
+    output: true
+    nav_order: 5
+    nav_name: Data and Analysis
+    nav_list_pages: false
+    index_list_pages: true
+    permalink: /:collection/:name
+    add_new_name: page
+  software_and_simulation:
+    output: true
+    nav_order: 6
+    nav_name: Software & Simulation
+    nav_list_pages: false
+    index_list_pages: true
+    permalink: /:collection/:name
+    add_new_name: page
+  miscellaneous:
+    output: true
+    nav_order: 8
+    nav_name: Miscellaneous
+    nav_list_pages: true
+    index_list_pages: true
+    permalink: /:collection/:name
+    add_new_name: page
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      show_edit_button: true
+      show_history_button: true
+      show_delete_button: true
+      order: 0
+  - scope:
+      path: "index.*"
+    values:
+      show_edit_button: true
+      show_history_button: true
+      show_delete_button: false
+  - scope:
+      path: "tags.*"
+    values:
+      show_edit_button: false
+      show_history_button: false
+      show_delete_button: false
+  - scope:
+      path: "people.*"
+    values:
+      show_edit_button: false
+      show_history_button: false
+      show_delete_button: false
+  - scope:
+      path: "add_metadata_file.*"
+    values:
+      show_edit_button: false
+      show_history_button: false
+      show_delete_button: false
+  - scope:
+      path: "collections/*/index.*"
+    values:
+      show_edit_button: true
+      show_history_button: true
+      show_delete_button: false
+  - scope:
+      path: ""
+      type: "experiments"
+    values:
+      layout: experiment
+      tags: [protocol, experiment]
+      toc: true
+      published: true
+      show_breadcrumbs: true
+      show_meta: true
+      title: ""
+      subcollection: root
+  - scope:
+      path: ""
+      type: "tutorials"
+    values:
+      layout: post
+      show_breadcrumbs: true
+      show_meta: true
+      title: ""
+      subcollection: root
+  - scope:
+      path: ""
+      type: "software_and_simulation"
+    values:
+      layout: post
+      show_breadcrumbs: true
+      show_meta: true
+      title: ""
+      subcollection: root
+  - scope:
+      path: ""
+      type: "handbook"
+    values:
+      layout: post
+      show_breadcrumbs: true
+      show_meta: true
+      title: ""
+      subcollection: root
+  - scope:
+      path: ""
+      type: "code_of_conduct"
+    values:
+      layout: post
+      show_breadcrumbs: true
+      show_meta: true
+      title: ""
+      subcollection: root
+  - scope:
+      path: ""
+      type: "miscellaneous"
+    values:
+      layout: post
+      show_breadcrumbs: true
+      show_meta: true
+      title: ""
+      subcollection: root
+  - scope:
+      path: ""
+      type: "data_analysis"
+    values:
+      layout: post
+      show_breadcrumbs: true
+      show_meta: true
+      title: ""

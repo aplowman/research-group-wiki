@@ -1,0 +1,16 @@
+---
+layout: post
+title: Handbook
+show_breadcrumbs: false
+show_meta: false
+published: true
+author: Joe Bloggs
+toc: true
+---
+
+<p>Add notes here about what the purpose of the handbook is!</p>
+
+<h3 id="handbook-pages">Handbook Pages</h3>
+
+{% capture pages_list %}{% include get_collection_pages.html page=page %}{% endcapture %}
+{{ pages_list }}

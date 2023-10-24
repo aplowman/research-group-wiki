@@ -1,0 +1,4 @@
+- name: Joe Bloggs
+  handle: JoeBloggs
+  url: https://www.google.com/search?q=joe+bloggs
+  initials: JB

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+{% include head.html %}
+
+<body>
+    {% include page_sidebar.html %}
+    <div class="page-main-cover"></div>
+    <div class="page-main">
+        {% include page_header.html %}
+        <div class="page-content">
+            {% include resolve_people.html content=content %}
+        </div>
+        <div class="page-footer"></div>
+    </div>
+    <script type="text/javascript">
+
+        function toggleNav() {
+            console.log("toggleNav");
+            var bod = document.body;
+            var navControl = document.getElementsByClassName('sidebar-control')[0];
+            if (!bod.classList.contains('sidebar-open') && !bod.classList.contains('sidebar-closed')) {
+                bod.classList.toggle('sidebar-closed');
+                console.log("toggleNav: no sidebar-open/sidebar-closed class on body");
+            }
+            bod.classList.toggle('sidebar-open');
+            bod.classList.toggle('sidebar-closed');
+            bod.classList.toggle('no-scroll');
+            navControl.classList.toggle("open");
+        }
+
+        window.addEventListener('click', function (e) {
+
+            var bod = document.body;
+
+            if (e.target.classList.contains('sidebar-control') || e.target.classList.contains('sidebar-control-bar')) {
+                console.log("clicked nav-control");
+                toggleNav()
+
+            } else if (bod.classList.contains('sidebar-open') && e.target.id != 'sidebar-control') {
+                if (!document.getElementsByClassName('sidebar-wrap')[0].contains(e.target)) {
+                    console.log("clicked out nav")
+                    toggleNav()
+                }
+            }
+        });
+
+        document.onkeydown = function (evt) {
+
+            var bod = document.body;
+            var navControl = document.getElementsByClassName('sidebar-control')[0];
+
+            evt = evt || window.event;
+            if (evt.key == "Escape") {
+                if (bod.classList.contains('sidebar-open')) {
+                    if (navControl.classList.contains('open')) {
+                        toggleNav();
+                    }
+                }
+            }
+        };
+
+        var headings = document.querySelectorAll("h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]");
+
+        for (var i = 0; i < headings.length; i++) {
+            headings[i].innerHTML =
+                '<a href="#' + headings[i].id + '">' +
+                headings[i].innerText +
+                '</a>';
+        }
+
+        function copyToClipboard(containerElem, confirmElem) {
+
+            var textarea = document.createElement('textarea')
+            textarea.id = 'temp_element'
+            textarea.style.height = 0
+            document.body.appendChild(textarea)
+            textarea.value = containerElem.innerText
+
+            var selector = document.querySelector('#temp_element')
+            selector.select()
+            document.execCommand('copy')
+            document.body.removeChild(textarea)
+            confirmElem.innerHTML = 'Copied!';
+            confirmElem.style.opacity = 1;
+            confirmElem.style.display = 'inline';
+            setTimeout(function () {
+                fadeOut(confirmElem);
+            }, 400);
+
+        }
+
+        function fadeOut(element) {
+            var op = 1;  // initial opacity
+            var timer = setInterval(function () {
+                if (op <= 0.1) {
+                    clearInterval(timer);
+                    element.style.display = 'none';
+                }
+                element.style.opacity = op;
+                element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+                op -= op * 0.1;
+            }, 50);
+        }
+
+        // Add copy-to-clipboard to code blocks:
+        var codeBlocks = document.querySelectorAll('div[class^=language-]');
+        for (var i = 0; i < codeBlocks.length; i++) {
+            var item = codeBlocks[i];
+            var codeCopyID = "syntax-highlight-copy-target-" + i.toString();
+            var copyWidgetStr = `
+                <div class="copy-widget inline" data-copy-id="${codeCopyID}">
+                    <span class="copy-message"></span>                    
+                    <button class="copy-button">Copy</button>
+                </div>`
+            var highlightElem = item.firstChild;
+            highlightElem.insertAdjacentHTML('afterbegin', copyWidgetStr)
+            var codeElem = item.querySelector('code');
+            codeElem.id = codeCopyID;
+        }
+
+        // Copy-to-clipboard widgets:
+        var copyWidgets = document.getElementsByClassName("copy-widget");
+        for (let i of copyWidgets) {
+            let copyTargetId = i.dataset.copyId
+            let copyTarget = document.querySelector('#' + copyTargetId);
+            let copyButton = i.querySelector('.copy-button');
+            let copyMessage = i.querySelector('.copy-message');
+            copyButton.addEventListener('click', function () {
+                copyToClipboard(copyTarget, copyMessage)
+            });
+        }
+
+    </script>
+</body>
+
+</html>
