@@ -1,7 +1,6 @@
-title: "Research group wiki"
-description: "Wiki for sharing procedures and information in research groups."
-maintainer: "Adam Plowman"
-baseurl: "/wiki"
+title: Research group wiki
+description: Wiki for sharing procedures and information in research groups.
+maintainer: Joe Bloggs
 github_user_or_organisation: aplowman
 markdown: kramdown
 kramdown:
