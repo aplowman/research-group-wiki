@@ -1,7 +1,7 @@
 title: Research group wiki
 description: Wiki for sharing procedures and information in research groups.
 maintainer: Joe Bloggs
-baseurl: "/wiki"
+baseurl: "/research-group-wiki"
 github_user_or_organisation: aplowman
 markdown: kramdown
 kramdown:
